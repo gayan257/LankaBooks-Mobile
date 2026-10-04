@@ -12,6 +12,7 @@ A mobile app for Sinhala readers, authors, and book buyers. This repo is the ini
 - Step 1: Project setup completed
 - Step 2: Auth flow + app navigation completed
 - Step 3: Firebase project configuration prepared
+- Step 4: Book publishing form ready
 
 ## Firebase setup
 1. Create a Firebase project at https://console.firebase.google.com
@@ -53,3 +54,4 @@ EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
 - src/navigation - navigation setup
 - src/config/firebaseConfig.ts - Firebase initialization
 - src/services - auth and book services
+- src/screens/PublishScreen.tsx - book upload form
