@@ -4,13 +4,13 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import { mockBooks } from '../data/mockBooks';
 import { colors } from '../theme/colors';
 
-export const HomeScreen = () => {
+export default function HomeScreen({ navigation }: any) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -34,7 +34,11 @@ export const HomeScreen = () => {
         </View>
 
         {mockBooks.map((book) => (
-          <View key={book.id} style={styles.card}>
+          <TouchableOpacity
+            key={book.id}
+            style={styles.card}
+            onPress={() => navigation.navigate('BookDetail', { book })}
+          >
             <View style={styles.coverPlaceholder} />
             <View style={styles.bookInfo}>
               <Text style={styles.bookTitle}>{book.title}</Text>
@@ -42,12 +46,12 @@ export const HomeScreen = () => {
               <Text style={styles.bookMeta}>Genre: {book.genre}</Text>
               <Text style={styles.bookMeta}>LKR {book.price}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

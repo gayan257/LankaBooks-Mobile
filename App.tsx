@@ -1,12 +1,11 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { HomeScreen } from './src/screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import AppNavigator from './src/navigation/AppNavigator';
 
 export default function App() {
   return (
-    <>
-      <StatusBar style="dark" />
-      <HomeScreen />
-    </>
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
