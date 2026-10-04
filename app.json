@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "LankaBooks",
+    "slug": "lankabooks-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#F6F1EA"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F6F1EA"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
