@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,30 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { loginUser } from '../services/authService';
 
 export default function LoginScreen({ navigation }: any) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert('Please enter both email and password.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await loginUser(email, password);
+      navigation.navigate('MainTabs');
+    } catch (error: any) {
+      alert(error.message || 'Login failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -24,6 +46,8 @@ export default function LoginScreen({ navigation }: any) {
             style={styles.input}
             keyboardType="email-address"
             autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
           />
 
           <TextInput
@@ -31,13 +55,16 @@ export default function LoginScreen({ navigation }: any) {
             placeholderTextColor={colors.secondary}
             style={styles.input}
             secureTextEntry
+            value={password}
+            onChangeText={setPassword}
           />
 
           <TouchableOpacity
             style={styles.primaryButton}
-            onPress={() => navigation.navigate('MainTabs')}
+            onPress={handleLogin}
+            disabled={loading}
           >
-            <Text style={styles.primaryButtonText}>Log in</Text>
+            <Text style={styles.primaryButtonText}>{loading ? 'Logging in...' : 'Log in'}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>

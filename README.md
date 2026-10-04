@@ -5,19 +5,30 @@ A mobile app for Sinhala readers, authors, and book buyers. This repo is the ini
 ## Stack
 - React Native + Expo
 - TypeScript
-- Firebase (planned)
+- Firebase Authentication + Firestore
 - Stripe / PayHere integration (planned)
 
-## Step 1: Project Setup
-This repository currently contains the base app structure and initial landing screen for the platform.
+## Current status
+- Step 1: Project setup completed
+- Step 2: Auth flow + app navigation completed
+- Step 3: Firebase project configuration prepared
 
-## Features in MVP
-- Browse books
-- Read books
-- Publish/upload books
-- Buy books
-- Search and filter
-- User profile
+## Firebase setup
+1. Create a Firebase project at https://console.firebase.google.com
+2. Add an Android and iOS app to the project
+3. Get your Firebase web configuration values
+4. Copy `.env.example` to `.env`
+5. Add the values below
+
+Example `.env`:
+```
+EXPO_PUBLIC_FIREBASE_API_KEY=your_api_key
+EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+EXPO_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
 
 ## Run locally
 1. Install dependencies:
@@ -28,8 +39,17 @@ This repository currently contains the base app structure and initial landing sc
    - Android: npm run android
    - iOS: npm run ios
 
+## Features in MVP
+- Browse books
+- Read books
+- Publish/upload books
+- Buy books
+- Search and filter
+- User profile
+
 ## Folder structure
 - App.tsx - root app entry
-- src/screens/HomeScreen.tsx - main home screen
-- src/data/mockBooks.ts - example book data
-- src/theme/colors.ts - app colors
+- src/screens - app screens
+- src/navigation - navigation setup
+- src/config/firebaseConfig.ts - Firebase initialization
+- src/services - auth and book services

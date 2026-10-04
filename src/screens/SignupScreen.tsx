@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,8 +8,37 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { colors } from '../theme/colors';
+import { registerUser } from '../services/authService';
 
 export default function SignupScreen({ navigation }: any) {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignup = async () => {
+    if (!fullName || !email || !password || !confirmPassword) {
+      alert('Please fill out all fields.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await registerUser(email, password);
+      navigation.navigate('MainTabs');
+    } catch (error: any) {
+      alert(error.message || 'Signup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -18,32 +47,45 @@ export default function SignupScreen({ navigation }: any) {
         <Text style={styles.subtitle}>Start publishing and reading stories today.</Text>
 
         <View style={styles.form}>
-          <TextInput placeholder="Full name" style={styles.input} placeholderTextColor={colors.secondary} />
+          <TextInput
+            placeholder="Full name"
+            style={styles.input}
+            placeholderTextColor={colors.secondary}
+            value={fullName}
+            onChangeText={setFullName}
+          />
           <TextInput
             placeholder="Email address"
             style={styles.input}
             placeholderTextColor={colors.secondary}
             keyboardType="email-address"
             autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
           />
           <TextInput
             placeholder="Password"
             style={styles.input}
             placeholderTextColor={colors.secondary}
             secureTextEntry
+            value={password}
+            onChangeText={setPassword}
           />
           <TextInput
             placeholder="Confirm password"
             style={styles.input}
             placeholderTextColor={colors.secondary}
             secureTextEntry
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
           />
 
           <TouchableOpacity
             style={styles.primaryButton}
-            onPress={() => navigation.navigate('MainTabs')}
+            onPress={handleSignup}
+            disabled={loading}
           >
-            <Text style={styles.primaryButtonText}>Sign up</Text>
+            <Text style={styles.primaryButtonText}>{loading ? 'Creating account...' : 'Sign up'}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
